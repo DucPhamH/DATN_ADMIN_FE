@@ -1,4 +1,3 @@
-import React from 'react'
 import SideBar from '../../components/GlobalComponents/SideBar'
 import Header from '../../components/GlobalComponents/Header'
 import Footer from '../../components/GlobalComponents/Footer'

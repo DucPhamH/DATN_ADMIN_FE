@@ -31,7 +31,7 @@ export default function Login() {
       onSuccess: (data) => {
         setIsAuthenticated(true)
         setProfile(data.data.result.user)
-        navigate('/home')
+        navigate('/')
         toast.success(data.data.message)
       },
       onError: (error) => {

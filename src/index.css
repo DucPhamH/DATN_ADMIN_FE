@@ -89,7 +89,7 @@ input:-webkit-autofill:active {
 }
 
 .link-custom {
-  @apply p-3 flex rounded-md gap-5 text-base items-center md:cursor-pointer cursor-pointer duration-300 font-medium;
+  @apply p-4 flex rounded-md gap-4 text-base items-center md:cursor-pointer cursor-pointer duration-300 font-medium;
 }
 
 .active {

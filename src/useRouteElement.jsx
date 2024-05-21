@@ -7,18 +7,19 @@ import MainLayout from './layouts/MainLayout'
 import { AppContext } from './contexts/app.context'
 
 const Home = lazy(() => import('./pages/Home'))
+const UserList = lazy(() => import('./pages/UserList'))
 
 const LoginAdmin = lazy(() => import('./pages/LoginAdmin'))
 
 export default function useRouteElement() {
   function ProtectedRoute() {
     const { isAuthenticated } = useContext(AppContext)
-    return isAuthenticated ? <Outlet /> : <Navigate to='/login/admin' />
+    return isAuthenticated ? <Outlet /> : <Navigate to='/login' />
   }
 
   function RejectedRoute() {
     const { isAuthenticated } = useContext(AppContext)
-    return !isAuthenticated ? <Outlet /> : <Navigate to='/home' />
+    return !isAuthenticated ? <Outlet /> : <Navigate to='/' />
   }
   const routeElement = useRoutes([
     {
@@ -26,7 +27,7 @@ export default function useRouteElement() {
       element: <RejectedRoute />,
       children: [
         {
-          path: '/login/admin',
+          path: '/login',
           element: (
             <AuthLayout>
               <Suspense>
@@ -43,11 +44,23 @@ export default function useRouteElement() {
       element: <ProtectedRoute />,
       children: [
         {
-          path: '/home',
+          path: '',
+          index: true,
           element: (
             <MainLayout>
               <Suspense>
                 <Home />
+              </Suspense>
+            </MainLayout>
+          )
+        },
+        {
+          path: '/user',
+          index: true,
+          element: (
+            <MainLayout>
+              <Suspense>
+                <UserList />
               </Suspense>
             </MainLayout>
           )

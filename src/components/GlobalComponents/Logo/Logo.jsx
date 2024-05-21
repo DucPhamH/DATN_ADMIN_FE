@@ -1,4 +1,3 @@
-import React from 'react'
 import DarkMode from '../DarkMode'
 import logo from '../../../assets/images/logo.png'
 
@@ -10,10 +9,13 @@ export default function Logo({
   return (
     <div className={className}>
       <img src={logo} width={sizeLogo} alt='icon-app' />
-      <span className={textClassName}>
-        <span className='text-red-500'>Cook</span>Healthy
-        <DarkMode />
-      </span>
+      <div>
+        <span className={textClassName}>
+          <span className='text-red-500'>Cook</span>Healthy
+          <DarkMode />
+        </span>
+        <div className='text-sm flex text-gray-500 items-center font-semibold'>Admin</div>
+      </div>
     </div>
   )
 }

@@ -15,7 +15,7 @@ export default function NotFound() {
           </p>
           <div>
             <button
-              onClick={() => navigate('/home')}
+              onClick={() => navigate('/')}
               className='bg-gradient-to-r btn text-gray-100 from-[#ef571a] to-[#b11804]'
             >
               Trở về trang chủ

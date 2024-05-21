@@ -44,17 +44,23 @@ export default function UserAvatar() {
   return (
     <div ref={ref}>
       <button
-        className='flex relative items-center transition-all duration-700 text-lg py-1 px-1 font-medium text-gray-900 rounded-full
+        className='flex gap-2 relative items-center transition-all duration-700 text-lg py-1 px-1 font-medium text-gray-900 rounded-full
          hover:text-red-600 dark:hover:text-red-600 dark:text-white'
         type='button'
         onClick={() => setIsMenu(!isMenu)}
       >
-        <div className='w-8 h-8 md:w-10 object-cover md:h-10 rounded-full'>
+        <div className='w-8  h-8 md:w-10 object-cover md:h-10 rounded-full'>
           <img
             className='w-8 h-8 md:w-10 object-cover md:h-10 rounded-full'
             src={profile.avatar === '' ? useravatar : profile.avatar}
             alt='user photo'
           />
+        </div>
+        <div className=' flex flex-col justify-start text-sm'>
+          <div className='capitalize flex flex-col justify-start text-gray-600 dark:text-gray-300 text-sm hover:underline'>
+            {profile.name}
+          </div>
+          <p className='text-xs flex text-gray-500 dark:text-gray-400 justify-start'>{profile.user_name}</p>
         </div>
       </button>
       <AnimatePresence>
@@ -70,7 +76,7 @@ export default function UserAvatar() {
               <div className='py-2 text-gray-700 dark:text-gray-200'>
                 <div>
                   <Link
-                    to='/home'
+                    to='/'
                     onClick={() => setIsMenu(false)}
                     className='block px-4 py-2 transition-all duration-400 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'
                   >

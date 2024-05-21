@@ -2,16 +2,18 @@ import { useEffect, useState } from 'react'
 import { useRef } from 'react'
 import { motion } from 'framer-motion'
 // * React icons
-import { FaCookieBite, FaShareAlt } from 'react-icons/fa'
-import { BsFillCalendarHeartFill, BsFillHeartFill, BsPeopleFill } from 'react-icons/bs'
+
+import { BsPeopleFill } from 'react-icons/bs'
 import { useMediaQuery } from 'react-responsive'
 import { MdMenu } from 'react-icons/md'
 import { NavLink, useLocation } from 'react-router-dom'
 import Submenu from './SubMenu'
-import { FaPenToSquare } from 'react-icons/fa6'
-import { IoMdAlbums } from 'react-icons/io'
-import { MdBook } from 'react-icons/md'
+
 import Logo from '../Logo'
+import { MdDashboardCustomize } from 'react-icons/md'
+import { RiUserReceived2Fill } from 'react-icons/ri'
+import { MdFactCheck } from 'react-icons/md'
+import { FaUserPen } from 'react-icons/fa6'
 
 export default function SideBar() {
   let isTabletMid = useMediaQuery({ query: '(max-width: 767px)' })
@@ -52,32 +54,33 @@ export default function SideBar() {
 
   const subMenusList = [
     {
-      name: 'Sức khoẻ',
-      icon: BsFillHeartFill,
+      name: 'Quản lý tài khoản',
+      icon: BsPeopleFill,
       menus: [
-        { subName: 'Công cụ tính toán', subPath: 'fitness-caculator' },
-        { subName: 'Lịch sử tính toán', subPath: 'fitness-history' }
+        { subName: 'Người dùng', subPath: 'user' },
+        { subName: 'Người kiểm duyệt', subPath: 'inspector' },
+        { subName: 'Người viết bài', subPath: 'writter' }
       ],
-      path: 'fitness'
-    },
-    {
-      name: 'Lịch trình',
-      icon: BsFillCalendarHeartFill,
-      menus: [
-        { subName: 'Lịch trình ăn uống', subPath: 'eat-schedule' },
-        { subName: 'Lịch trình tập luyện', subPath: 'ex-schedule' }
-      ],
-      path: 'schedule'
-    },
-    {
-      name: 'Tạo bài viết',
-      icon: FaPenToSquare,
-      menus: [
-        { subName: 'Tạo bài viết nấu ăn', subPath: 'food-list' },
-        { subName: 'Tạo blog dinh dưỡng', subPath: 'blog-list' }
-      ],
-      path: 'chef'
+      path: 'account'
     }
+    // {
+    //   name: 'Lịch trình',
+    //   icon: BsFillCalendarHeartFill,
+    //   menus: [
+    //     { subName: 'Lịch trình ăn uống', subPath: 'eat-schedule' },
+    //     { subName: 'Lịch trình tập luyện', subPath: 'ex-schedule' }
+    //   ],
+    //   path: 'schedule'
+    // },
+    // {
+    //   name: 'Tạo bài viết',
+    //   icon: FaPenToSquare,
+    //   menus: [
+    //     { subName: 'Tạo bài viết nấu ăn', subPath: 'food-list' },
+    //     { subName: 'Tạo blog dinh dưỡng', subPath: 'blog-list' }
+    //   ],
+    //   path: 'chef'
+    // }
   ]
 
   return (
@@ -96,33 +99,42 @@ export default function SideBar() {
         <Logo />
 
         <div className='flex flex-col h-full'>
-          <ul className='whitespace-pre  px-2.5 pt-4 pb-4 flex flex-col gap-3 font-medium overflow-x-hidden scrollbar-thin scrollbar-track-white dark:scrollbar-track-[#010410] dark:scrollbar-thumb-[#171c3d] scrollbar-thumb-slate-100 md:h-[72%] h-[70%]'>
+          <ul className='whitespace-pre  px-2.5 pt-6  flex flex-col gap-3 font-medium overflow-x-hidden scrollbar-thin scrollbar-track-white dark:scrollbar-track-[#010410] dark:scrollbar-thumb-[#171c3d] scrollbar-thumb-slate-100 md:h-[72%] h-[70%]'>
             <li>
-              <NavLink to={'/home'} className='link-custom '>
-                <BsPeopleFill size={25} className='min-w-max' />
-                Cộng đồng
+              <NavLink to={'/'} className='link-custom '>
+                <MdDashboardCustomize size={25} className='min-w-max' />
+                Dashboard
               </NavLink>
             </li>
             <li>
               <NavLink to={'/cooking'} className='link-custom '>
-                <FaCookieBite size={25} className='min-w-max' />
-                Nấu ăn
+                <RiUserReceived2Fill size={25} className='min-w-max' />
+                Yêu cầu nâng cấp
               </NavLink>
             </li>
-            <li>
-              <NavLink to={'/album'} className='link-custom '>
-                <IoMdAlbums size={25} className='min-w-max' />
-                Album
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to={'/blog'} className='link-custom '>
-                <FaShareAlt size={25} className='min-w-max' />
-                Góc chia sẻ
-              </NavLink>
-            </li>
+            <div className='border-t py-5 border-t-slate-300 '>
+              <small className='pl-3 text-slate-500 inline-block mb-2'>Quản lí tài khoản</small>
+              <li>
+                <NavLink to={'/user'} className='link-custom '>
+                  <BsPeopleFill size={25} className='min-w-max' />
+                  Người dùng
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={'/cooking'} className='link-custom '>
+                  <MdFactCheck size={25} className='min-w-max' />
+                  Người kiểm duyệt
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={'/cooking'} className='link-custom '>
+                  <FaUserPen size={25} className='min-w-max' />
+                  Người viết bài
+                </NavLink>
+              </li>
+            </div>
 
-            {(open || isTabletMid) && (
+            {/* {(open || isTabletMid) && (
               <div className='border-y py-5 border-slate-300 '>
                 <small className='pl-3 text-slate-500 inline-block mb-2'>Người dùng</small>
                 {subMenusList?.map((menu) => (
@@ -137,9 +149,9 @@ export default function SideBar() {
                 <MdBook size={25} className='min-w-max' />
                 Mục đã lưu
               </NavLink>
-            </li>
+            </li> */}
           </ul>
-          {open && (
+          {/* {open && (
             <div className='flex-1 text-sm z-50 max-h-48 my-auto whitespace-pre w-full  font-medium  '>
               <div className='flex border-y border-slate-300 p-4 items-center justify-between'>
                 <div>
@@ -151,30 +163,8 @@ export default function SideBar() {
                 </p>
               </div>
             </div>
-          )}
+          )} */}
         </div>
-        {/* <motion.div
-          onClick={() => {
-            setOpen(!open)
-          }}
-          animate={
-            open
-              ? {
-                  x: 0,
-                  y: 0,
-                  rotate: 0
-                }
-              : {
-                  x: -10,
-                  y: -200,
-                  rotate: 180
-                }
-          }
-          transition={{ duration: 0 }}
-          className='absolute w-fit h-fit md:block border border-black rounded-full dark:border-gray-200 hover:bg-red-600 transition-all z-50 hidden right-2 bottom-3 cursor-pointer'
-        >
-          <IoIosArrowBack size={25} />
-        </motion.div> */}
       </motion.div>
       <div
         className='my-3 cursor-pointer hover:text-red-600 transition-all ml-4 mr-3 md:hidden absolute top-2 z-50'
