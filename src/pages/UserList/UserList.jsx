@@ -1,5 +1,4 @@
 import { createSearchParams, useNavigate } from 'react-router-dom'
-import useQueryConfig from '../../../../DATN_FE/src/hooks/useQueryConfig'
 import { getAllUserAdmin } from '../../apis/adminApi'
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
@@ -8,6 +7,7 @@ import { AiOutlineSearch } from 'react-icons/ai'
 import Loading from '../../components/GlobalComponents/Loading'
 import UserItem from './components/UserItem'
 import Pagination from '../../components/GlobalComponents/Pagination/Pagination'
+import useQueryConfig from '../../hooks/useQueryConfig'
 
 export default function UserList() {
   const navigate = useNavigate()
