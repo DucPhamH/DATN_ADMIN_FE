@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useRef } from 'react'
 import { motion } from 'framer-motion'
 // * React icons
@@ -13,13 +13,17 @@ import Logo from '../Logo'
 import { MdDashboardCustomize } from 'react-icons/md'
 import { RiUserReceived2Fill } from 'react-icons/ri'
 import { MdFactCheck } from 'react-icons/md'
-import { FaUserPen } from 'react-icons/fa6'
+import { FaCookieBite, FaUserPen } from 'react-icons/fa6'
+import { AppContext } from '../../../contexts/app.context'
+import { IoMdAlbums } from 'react-icons/io'
+import { FaShareAlt } from 'react-icons/fa'
 
 export default function SideBar() {
   let isTabletMid = useMediaQuery({ query: '(max-width: 767px)' })
   const [open, setOpen] = useState(isTabletMid ? false : true)
   const sidebarRef = useRef()
   const { pathname } = useLocation()
+  const { profile } = useContext(AppContext)
 
   useEffect(() => {
     if (isTabletMid) {
@@ -106,33 +110,70 @@ export default function SideBar() {
                 Dashboard
               </NavLink>
             </li>
-            <li>
-              <NavLink to={'/cooking'} className='link-custom '>
-                <RiUserReceived2Fill size={25} className='min-w-max' />
-                Yêu cầu nâng cấp
-              </NavLink>
-            </li>
-            <div className='border-t py-5 border-t-slate-300 '>
-              <small className='pl-3 text-slate-500 inline-block mb-2'>Quản lí tài khoản</small>
+            {profile?.role === 2 && (
               <li>
-                <NavLink to={'/user'} className='link-custom '>
-                  <BsPeopleFill size={25} className='min-w-max' />
-                  Người dùng
+                <NavLink to={'/request-list'} className='link-custom '>
+                  <RiUserReceived2Fill size={25} className='min-w-max' />
+                  Yêu cầu nâng cấp
                 </NavLink>
               </li>
+            )}
+
+            {profile?.role === 4 && (
               <li>
-                <NavLink to={'/cooking'} className='link-custom '>
-                  <MdFactCheck size={25} className='min-w-max' />
-                  Người kiểm duyệt
+                <NavLink to={'/request-list'} className='link-custom '>
+                  <RiUserReceived2Fill size={25} className='min-w-max' />
+                  Bài viết bị báo cáo
                 </NavLink>
               </li>
-              <li>
-                <NavLink to={'/cooking'} className='link-custom '>
-                  <FaUserPen size={25} className='min-w-max' />
-                  Người viết bài
-                </NavLink>
-              </li>
-            </div>
+            )}
+
+            {profile?.role === 2 && (
+              <div className='border-t py-5 border-t-slate-300 '>
+                <small className='pl-3 text-slate-500 inline-block mb-2'>Quản lí tài khoản</small>
+                <li>
+                  <NavLink to={'/user'} className='link-custom '>
+                    <BsPeopleFill size={25} className='min-w-max' />
+                    Người dùng
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to={'/inspector'} className='link-custom '>
+                    <MdFactCheck size={25} className='min-w-max' />
+                    Người kiểm duyệt
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to={'/writter'} className='link-custom '>
+                    <FaUserPen size={25} className='min-w-max' />
+                    Người viết bài
+                  </NavLink>
+                </li>
+              </div>
+            )}
+            {profile?.role === 4 && (
+              <div className='border-t py-5 border-t-slate-300 '>
+                <small className='pl-3 text-slate-500 inline-block mb-2'>Quản lí tài khoản</small>
+                <li>
+                  <NavLink to={'/cooking'} className='link-custom '>
+                    <FaCookieBite size={25} className='min-w-max' />
+                    Quản lý món ăn
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to={'/album'} className='link-custom '>
+                    <IoMdAlbums size={25} className='min-w-max' />
+                    Quản lý album
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to={'/blog'} className='link-custom '>
+                    <FaShareAlt size={25} className='min-w-max' />
+                    Quản lý blog
+                  </NavLink>
+                </li>
+              </div>
+            )}
 
             {/* {(open || isTabletMid) && (
               <div className='border-y py-5 border-slate-300 '>

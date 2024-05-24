@@ -29,7 +29,7 @@ export default function UserItem({ user }) {
     mutationFn: () => deleteUserAdmin(user._id),
     onSuccess: () => {
       toast.success('Xóa người dùng thành công')
-      queryClient.invalidateQueries('user-list')
+      queryClient.invalidateQueries('writter-list')
       handleCloseDelete()
     }
   })
@@ -51,7 +51,7 @@ export default function UserItem({ user }) {
         { user_id: user._id },
         {
           onSuccess: () => {
-            queryClient.invalidateQueries('user-list')
+            queryClient.invalidateQueries('writter-list')
             toast.success('Mở khóa thành công')
           }
         }
@@ -61,7 +61,7 @@ export default function UserItem({ user }) {
         { user_id: user._id },
         {
           onSuccess: () => {
-            queryClient.invalidateQueries('user-list')
+            queryClient.invalidateQueries('writter-list')
             toast.success('Khóa thành công')
           }
         }
@@ -98,27 +98,10 @@ export default function UserItem({ user }) {
           )}
         </td>
         <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{user.email}</td>
-        <td className='px-6 py-4 whitespace-nowrap'>
-          {user?.banned_count >= 5 ? (
-            <span className='px-2 inline-flex text-xs leading-5 font-semibold text-red-700 dark:text-red-300  '>
-              {user?.banned_count} lượt
-            </span>
-          ) : (
-            <span className='px-2 inline-flex text-xs leading-5 font-semibold text-gray-700 dark:text-gray-300'>
-              {user?.banned_count} lượt
-            </span>
-          )}
-        </td>
         <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-          {user.role === 0 ? (
-            <span className='px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-black'>
-              Người dùng
-            </span>
-          ) : (
-            <span className='px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-green-800 dark:text-black '>
-              Đầu bếp
-            </span>
-          )}
+          <span className='px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-green-800 dark:text-black '>
+            Người viết bài
+          </span>
         </td>
         <td className='px-6 py-4 mt-2 flex item-center whitespace-nowrap  text-sm font-medium'>
           {user.status === 1 ? (
