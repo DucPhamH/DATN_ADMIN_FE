@@ -8,8 +8,10 @@ import { AppContext } from './contexts/app.context'
 
 const Home = lazy(() => import('./pages/Home'))
 const UserList = lazy(() => import('./pages/UserList'))
-
+const InspectorList = lazy(() => import('./pages/InspectorList'))
+const WritterList = lazy(() => import('./pages/WritterList'))
 const LoginAdmin = lazy(() => import('./pages/LoginAdmin'))
+const RequestUserList = lazy(() => import('./pages/RequestUserList'))
 
 export default function useRouteElement() {
   function ProtectedRoute() {
@@ -20,6 +22,13 @@ export default function useRouteElement() {
   function RejectedRoute() {
     const { isAuthenticated } = useContext(AppContext)
     return !isAuthenticated ? <Outlet /> : <Navigate to='/' />
+  }
+
+  function RoleProtectedRouterAdmin() {
+    const { profile } = useContext(AppContext)
+    const check = Boolean(profile.role === 2)
+    //  console.log(check)
+    return check ? <Outlet /> : <Navigate to='/' />
   }
   const routeElement = useRoutes([
     {
@@ -38,7 +47,6 @@ export default function useRouteElement() {
         }
       ]
     },
-
     {
       path: '',
       element: <ProtectedRoute />,
@@ -53,17 +61,63 @@ export default function useRouteElement() {
               </Suspense>
             </MainLayout>
           )
-        },
+        }
+      ]
+    },
+
+    {
+      path: '',
+      element: <ProtectedRoute />,
+      children: [
         {
-          path: '/user',
-          index: true,
-          element: (
-            <MainLayout>
-              <Suspense>
-                <UserList />
-              </Suspense>
-            </MainLayout>
-          )
+          path: '',
+          element: <RoleProtectedRouterAdmin />,
+          children: [
+            {
+              path: '/user',
+              index: true,
+              element: (
+                <MainLayout>
+                  <Suspense>
+                    <UserList />
+                  </Suspense>
+                </MainLayout>
+              )
+            },
+            {
+              path: '/inspector',
+              index: true,
+              element: (
+                <MainLayout>
+                  <Suspense>
+                    <InspectorList />
+                  </Suspense>
+                </MainLayout>
+              )
+            },
+            {
+              path: '/writter',
+              index: true,
+              element: (
+                <MainLayout>
+                  <Suspense>
+                    <WritterList />
+                  </Suspense>
+                </MainLayout>
+              )
+            },
+            {
+              path: '/request-list',
+              index: true,
+              element: (
+                <MainLayout>
+                  <Suspense>
+                    <RequestUserList />
+                  </Suspense>
+                </MainLayout>
+              )
+            }
+          ]
         }
       ]
     },

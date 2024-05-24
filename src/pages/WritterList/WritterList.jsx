@@ -9,13 +9,28 @@ import Loading from '../../components/GlobalComponents/Loading'
 import Pagination from '../../components/GlobalComponents/Pagination/Pagination'
 import useQueryConfig from '../../hooks/useQueryConfig'
 import UserItem from './components/UserItem'
+import { FaPlus } from 'react-icons/fa6'
+import { useState } from 'react'
+import ModalCreateWritter from './components/ModalCreateWritter'
 
-export default function UserList() {
+export default function WritterList() {
   const navigate = useNavigate()
-  const queryConfig = useQueryConfig()
+  const [openCreate, setOpenCreate] = useState(false)
+
+  const handleOpenCreate = () => {
+    setOpenCreate(true)
+  }
+
+  const handleCloseCreate = () => {
+    setOpenCreate(false)
+  }
+  const queryConfig = {
+    ...useQueryConfig(),
+    role: 3
+  }
 
   const { data, isLoading } = useQuery({
-    queryKey: ['user-list', queryConfig],
+    queryKey: ['writter-list', queryConfig],
     queryFn: () => {
       return getAllUserAdmin(queryConfig)
     },
@@ -28,7 +43,7 @@ export default function UserList() {
 
   const handleChangeSort = (e) => {
     navigate({
-      pathname: '/user',
+      pathname: '/writter',
       search: createSearchParams({
         ...queryConfig,
         sort: e.target.value
@@ -36,20 +51,10 @@ export default function UserList() {
     })
   }
 
-  const handleChangeRole = (e) => {
-    navigate({
-      pathname: '/user',
-      search: createSearchParams({
-        ...queryConfig,
-        role: e.target.value
-      }).toString()
-    })
-  }
-
   const handleChangeStatus = (e) => {
     console.log(e.target.value)
     navigate({
-      pathname: '/user',
+      pathname: '/writter',
       search: createSearchParams({
         ...queryConfig,
         status: e.target.value
@@ -65,14 +70,14 @@ export default function UserList() {
   const onSubmitSearch = handleSubmit((data) => {
     if (data.searchUsers === '') {
       navigate({
-        pathname: '/user',
-        search: createSearchParams(omit({ ...queryConfig }, ['status', 'role', 'page', 'search'])).toString()
+        pathname: '/writter',
+        search: createSearchParams(omit({ ...queryConfig }, ['status', 'page', 'search'])).toString()
       })
       return
     }
 
     navigate({
-      pathname: '/user',
+      pathname: '/writter',
       search: createSearchParams(omit({ ...queryConfig, search: data.searchUsers }, ['status', 'page'])).toString()
     })
   })
@@ -86,12 +91,20 @@ export default function UserList() {
           <div className='items-center'>
             <div className='mb-2'>
               <div className='text-xl font-medium mb-2'>
-                <span>Trang quản lý tài khoản người dùng</span>
+                <span>Trang quản lý tài khoản người viết bài</span>
               </div>
               <div className='border-b-[3px] mb-2 w-[10%] border-red-300 '></div>
             </div>
             <div className='col-span-4 lg:col-span-5 mb-2  '>
               <div className='flex flex-wrap gap-3 xl:justify-end items-center'>
+                <button
+                  onClick={handleOpenCreate}
+                  className='block btn btn-sm  md:inline-block md:w-auto  bg-red-800 hover:bg-red-700 text-white rounded-lg font-semibold text-sm md:ml-2 md:order-2'
+                >
+                  <div className='flex justify-center gap-2 items-center'>
+                    <FaPlus /> <div>Tạo người viết bài mới</div>
+                  </div>
+                </button>
                 <select
                   onChange={handleChangeSort}
                   defaultValue={queryConfig.sort}
@@ -100,15 +113,6 @@ export default function UserList() {
                 >
                   <option value='desc'>Mới nhất</option>
                   <option value='asc'>Lâu nhất</option>
-                </select>
-                <select
-                  onChange={handleChangeRole}
-                  defaultValue={queryConfig.role}
-                  id='role'
-                  className='select  select-sm border bg-white dark:bg-slate-800 dark:border-none'
-                >
-                  <option value='0'>Người dùng</option>
-                  <option value='1'>Đầu bếp</option>
                 </select>
                 <select
                   defaultValue={queryConfig.status}
@@ -127,7 +131,7 @@ export default function UserList() {
                       type='search'
                       id='search_input'
                       {...register('searchUsers')}
-                      placeholder='Tìm kiếm người dùng ...'
+                      placeholder='Tìm kiếm người dùng...'
                       className='w-full py-2 px-3 placeholder:text-sm rounded-lg border border-red-200 bg-white dark:border-none dark:bg-slate-800'
                     />
                     <button className='absolute right-1 top-1/2 -translate-y-1/2 py-2 px-3 bg-yellow-700 text-white dark:bg-slate-600 rounded-lg'>
@@ -169,12 +173,6 @@ export default function UserList() {
                         scope='col'
                         className='px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider'
                       >
-                        Lượt vi phạm
-                      </th>
-                      <th
-                        scope='col'
-                        className='px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider'
-                      >
                         Vai trò
                       </th>
                       <th
@@ -201,11 +199,12 @@ export default function UserList() {
           )}
           {data?.data.result.totalPage > 1 && (
             <div className='flex justify-center items-center'>
-              <Pagination pageSize={data?.data.result.totalPage} queryConfig={queryConfig} url='/user' />
+              <Pagination pageSize={data?.data.result.totalPage} queryConfig={queryConfig} url='/writter' />
             </div>
           )}
         </div>
       </div>
+      {openCreate && <ModalCreateWritter handleCloseModal={handleCloseCreate} />}
     </div>
   )
 }

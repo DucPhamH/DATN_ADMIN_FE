@@ -1,5 +1,5 @@
 import { createSearchParams, useNavigate } from 'react-router-dom'
-import { getAllUserAdmin } from '../../apis/adminApi'
+import { getAllRequestToChef } from '../../apis/adminApi'
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { omit } from 'lodash'
@@ -10,14 +10,14 @@ import Pagination from '../../components/GlobalComponents/Pagination/Pagination'
 import useQueryConfig from '../../hooks/useQueryConfig'
 import UserItem from './components/UserItem'
 
-export default function UserList() {
+export default function RequestUserList() {
   const navigate = useNavigate()
-  const queryConfig = useQueryConfig()
+  const queryConfig = omit(useQueryConfig(), ['sort'])
 
   const { data, isLoading } = useQuery({
-    queryKey: ['user-list', queryConfig],
+    queryKey: ['request-list', queryConfig],
     queryFn: () => {
-      return getAllUserAdmin(queryConfig)
+      return getAllRequestToChef(queryConfig)
     },
     placeholderData: keepPreviousData,
     staleTime: 1000 * 60 * 10
@@ -26,33 +26,12 @@ export default function UserList() {
   console.log(queryConfig)
   console.log(data)
 
-  const handleChangeSort = (e) => {
+  const handleChangeType = (e) => {
     navigate({
-      pathname: '/user',
+      pathname: '/request-list',
       search: createSearchParams({
         ...queryConfig,
-        sort: e.target.value
-      }).toString()
-    })
-  }
-
-  const handleChangeRole = (e) => {
-    navigate({
-      pathname: '/user',
-      search: createSearchParams({
-        ...queryConfig,
-        role: e.target.value
-      }).toString()
-    })
-  }
-
-  const handleChangeStatus = (e) => {
-    console.log(e.target.value)
-    navigate({
-      pathname: '/user',
-      search: createSearchParams({
-        ...queryConfig,
-        status: e.target.value
+        type: e.target.value
       }).toString()
     })
   }
@@ -65,14 +44,14 @@ export default function UserList() {
   const onSubmitSearch = handleSubmit((data) => {
     if (data.searchUsers === '') {
       navigate({
-        pathname: '/user',
+        pathname: '/request-list',
         search: createSearchParams(omit({ ...queryConfig }, ['status', 'role', 'page', 'search'])).toString()
       })
       return
     }
 
     navigate({
-      pathname: '/user',
+      pathname: '/request-list',
       search: createSearchParams(omit({ ...queryConfig, search: data.searchUsers }, ['status', 'page'])).toString()
     })
   })
@@ -86,38 +65,20 @@ export default function UserList() {
           <div className='items-center'>
             <div className='mb-2'>
               <div className='text-xl font-medium mb-2'>
-                <span>Trang quản lý tài khoản người dùng</span>
+                <span>Trang quản lý yêu cầu người dùng</span>
               </div>
               <div className='border-b-[3px] mb-2 w-[10%] border-red-300 '></div>
             </div>
             <div className='col-span-4 lg:col-span-5 mb-2  '>
               <div className='flex flex-wrap gap-3 xl:justify-end items-center'>
                 <select
-                  onChange={handleChangeSort}
-                  defaultValue={queryConfig.sort}
+                  onChange={handleChangeType}
+                  defaultValue={queryConfig.type}
                   id='sort'
                   className='select  select-sm border bg-white dark:bg-slate-800 dark:border-none'
                 >
-                  <option value='desc'>Mới nhất</option>
-                  <option value='asc'>Lâu nhất</option>
-                </select>
-                <select
-                  onChange={handleChangeRole}
-                  defaultValue={queryConfig.role}
-                  id='role'
-                  className='select  select-sm border bg-white dark:bg-slate-800 dark:border-none'
-                >
-                  <option value='0'>Người dùng</option>
-                  <option value='1'>Đầu bếp</option>
-                </select>
-                <select
-                  defaultValue={queryConfig.status}
-                  onChange={handleChangeStatus}
-                  id='status'
-                  className='select  select-sm border bg-white dark:bg-slate-800 dark:border-none'
-                >
-                  <option value='1'>Đang hoạt động</option>
-                  <option value='0'>Bị khóa</option>
+                  <option value='0'>Đủ follow</option>
+                  <option value='1'>Minh chứng</option>
                 </select>
 
                 <form onSubmit={onSubmitSearch} className=' w-[100%] max-w-[20rem] min-w-[18rem] relative'>
@@ -127,7 +88,7 @@ export default function UserList() {
                       type='search'
                       id='search_input'
                       {...register('searchUsers')}
-                      placeholder='Tìm kiếm người dùng ...'
+                      placeholder='Tìm kiếm yêu cầu'
                       className='w-full py-2 px-3 placeholder:text-sm rounded-lg border border-red-200 bg-white dark:border-none dark:bg-slate-800'
                     />
                     <button className='absolute right-1 top-1/2 -translate-y-1/2 py-2 px-3 bg-yellow-700 text-white dark:bg-slate-600 rounded-lg'>
@@ -201,7 +162,7 @@ export default function UserList() {
           )}
           {data?.data.result.totalPage > 1 && (
             <div className='flex justify-center items-center'>
-              <Pagination pageSize={data?.data.result.totalPage} queryConfig={queryConfig} url='/user' />
+              <Pagination pageSize={data?.data.result.totalPage} queryConfig={queryConfig} url='/request-list' />
             </div>
           )}
         </div>
