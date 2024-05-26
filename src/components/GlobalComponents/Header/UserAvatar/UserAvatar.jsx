@@ -28,11 +28,11 @@ export default function UserAvatar() {
   })
 
   const onLogout = () => {
-    logoutAccountMutation.mutate({
+    logoutAccountMutation.mutate(null, {
       onSuccess: (data) => {
-        console.log(data.data.message)
         setIsAuthenticated(false)
         setProfile(null)
+        console.log(data.data.message)
         toast.success(data.data.message)
       },
       onError: (error) => {

@@ -2,7 +2,7 @@ import { IoIosWarning } from 'react-icons/io'
 import Loading from '../Loading'
 import ModalLayout from '../../../layouts/ModalLayout/ModalLayout'
 
-export default function DeleteConfirmBox({
+export default function ConfirmBox({
   title,
   subtitle,
   type = 'submit',

@@ -21,7 +21,8 @@ export default function useQueryConfig() {
       type: queryParams.type,
       email: queryParams.email,
       otp_code: queryParams.otp_code,
-      role: queryParams.role
+      role: queryParams.role,
+      ingredient_category_ID: queryParams.ingredient_category_ID
     },
     isUndefined
   )

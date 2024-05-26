@@ -4,7 +4,7 @@ import http from '../utils/http'
 export const getReportPost = (params) => http.get('/inspectors/post-reports', { params })
 export const getReportPostDetail = (id) => http.get(`/inspectors/post-reports/${id}`)
 export const acceptReportPost = (id) => http.put(`/inspectors/post-accept/${id}`)
-export const rejectReportPost = (id) => http.put(`/inspectors/post-reject/${id}`)
+export const rejectReportPost = (id, body) => http.put(`/inspectors/post-reject/${id}`, body)
 
 export const getBlogsForInspector = (params) => http.get('/inspectors/blogs', { params })
 export const getBlogDetailForInspector = (id) => http.get(`/inspectors/blogs/${id}`)
@@ -21,3 +21,6 @@ export const getAlbumDetailForInspector = (id) => http.get(`/inspectors/albums/$
 export const acceptAlbum = (id) => http.put(`/inspectors/accept-album/${id}`)
 export const rejectAlbum = (id) => http.put(`/inspectors/reject-album/${id}`)
 export const getRecipesInAlbum = (params) => http.get(`/inspectors/album-recipes`, { params })
+
+export const getCategoryRecipes = () => http.get('/recipes/category/get-category')
+export const getCategoryBlogs = () => http.get('/blogs/category/get-category')

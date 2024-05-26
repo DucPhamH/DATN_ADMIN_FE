@@ -12,6 +12,15 @@ const InspectorList = lazy(() => import('./pages/InspectorList'))
 const WritterList = lazy(() => import('./pages/WritterList'))
 const LoginAdmin = lazy(() => import('./pages/LoginAdmin'))
 const RequestUserList = lazy(() => import('./pages/RequestUserList'))
+const RecipesList = lazy(() => import('./pages/RecipesList'))
+const RecipeDetail = lazy(() => import('./pages/RecipeDetail'))
+const BlogList = lazy(() => import('./pages/BlogList'))
+const BlogDetail = lazy(() => import('./pages/BlogDetail'))
+const AlbumList = lazy(() => import('./pages/AlbumList'))
+const AlbumDetail = lazy(() => import('./pages/AlbumDetail'))
+const ReportList = lazy(() => import('./pages/ReportList'))
+const ReportDetail = lazy(() => import('./pages/ReportDetail'))
+const IngredientList = lazy(() => import('./pages/IngredientList'))
 
 export default function useRouteElement() {
   function ProtectedRoute() {
@@ -58,6 +67,106 @@ export default function useRouteElement() {
             <MainLayout>
               <Suspense>
                 <Home />
+              </Suspense>
+            </MainLayout>
+          )
+        },
+        {
+          path: '/recipes',
+          element: (
+            <MainLayout>
+              <Suspense>
+                <RecipesList />
+              </Suspense>
+            </MainLayout>
+          )
+        },
+        {
+          path: '/recipes/:id',
+          element: (
+            <MainLayout>
+              <Suspense>
+                <RecipeDetail />
+              </Suspense>
+            </MainLayout>
+          )
+        },
+        {
+          path: '/blogs',
+          element: (
+            <MainLayout>
+              <Suspense>
+                <BlogList />
+              </Suspense>
+            </MainLayout>
+          )
+        },
+        {
+          path: '/blogs/:id',
+          element: (
+            <MainLayout>
+              <Suspense>
+                <BlogDetail />
+              </Suspense>
+            </MainLayout>
+          )
+        },
+        {
+          path: '/albums',
+          element: (
+            <MainLayout>
+              <Suspense>
+                <AlbumList />
+              </Suspense>
+            </MainLayout>
+          )
+        },
+        {
+          path: '/albums/:id',
+          element: (
+            <MainLayout>
+              <Suspense>
+                <AlbumDetail />
+              </Suspense>
+            </MainLayout>
+          )
+        },
+        {
+          path: '/albums/recipes/:id',
+          element: (
+            <MainLayout>
+              <Suspense>
+                <RecipeDetail />
+              </Suspense>
+            </MainLayout>
+          )
+        },
+        {
+          path: '/reports',
+          element: (
+            <MainLayout>
+              <Suspense>
+                <ReportList />
+              </Suspense>
+            </MainLayout>
+          )
+        },
+        {
+          path: '/reports/:id',
+          element: (
+            <MainLayout>
+              <Suspense>
+                <ReportDetail />
+              </Suspense>
+            </MainLayout>
+          )
+        },
+        {
+          path: '/ingredients',
+          element: (
+            <MainLayout>
+              <Suspense>
+                <IngredientList />
               </Suspense>
             </MainLayout>
           )

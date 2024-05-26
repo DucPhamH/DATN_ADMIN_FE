@@ -15,6 +15,7 @@ export const createRecipesForWritter = (body) =>
   })
 
 export const createIngredientsForWritter = (body) => http.post('/writters/create-ingredient', body)
+export const deleteIngredient = (id) => http.delete(`/writters/delete-ingredient/${id}`)
 export const getCategoryRecipes = () => http.get('/recipes/category/get-category')
 export const getCategoryIngredients = () => http.get('/ingredients/category')
 export const getIngredients = (params) => http.get('/ingredients', { params })

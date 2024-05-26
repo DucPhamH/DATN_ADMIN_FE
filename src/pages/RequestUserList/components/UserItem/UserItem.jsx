@@ -3,9 +3,9 @@ import { useMutation } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
 import { acceptRequestToChef, rejectRequestToChef } from '../../../../apis/adminApi'
 import { useState } from 'react'
-import DeleteConfirmBox from '../../../../components/GlobalComponents/DeleteConfirmBox'
 import { queryClient } from '../../../../main'
 import ModalRequest from '../ModalRequest'
+import ConfirmBox from '../../../../components/GlobalComponents/ConfirmBox'
 
 export default function UserItem({ user }) {
   const [openAccept, setOpenAccept] = useState(false)
@@ -133,7 +133,7 @@ export default function UserItem({ user }) {
           </div>
           <span>
             {openAccept && (
-              <DeleteConfirmBox
+              <ConfirmBox
                 closeModal={handleCloseAccept}
                 handleDelete={handleAccept}
                 isPending={acceptUserMutation.isPending}
@@ -143,7 +143,7 @@ export default function UserItem({ user }) {
               />
             )}
             {openReject && (
-              <DeleteConfirmBox
+              <ConfirmBox
                 closeModal={handleCloseReject}
                 handleDelete={handleReject}
                 isPending={rejectUserMutation.isPending}
