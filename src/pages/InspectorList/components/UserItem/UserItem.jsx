@@ -3,8 +3,8 @@ import { useMutation } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
 import { banUserAdmin, deleteUserAdmin, unbanUserAdmin } from '../../../../apis/adminApi'
 import { useState } from 'react'
-import DeleteConfirmBox from '../../../../components/GlobalComponents/DeleteConfirmBox'
 import { queryClient } from '../../../../main'
+import ConfirmBox from '../../../../components/GlobalComponents/ConfirmBox'
 
 export default function UserItem({ user }) {
   const [openDelete, setOpenDelete] = useState(false)
@@ -119,7 +119,7 @@ export default function UserItem({ user }) {
           </div>
           <span>
             {openDelete && (
-              <DeleteConfirmBox
+              <ConfirmBox
                 closeModal={handleCloseDelete}
                 handleDelete={handleDelete}
                 isPending={deleteUserMutation.isPending}
@@ -128,7 +128,7 @@ export default function UserItem({ user }) {
               />
             )}
             {openBan && (
-              <DeleteConfirmBox
+              <ConfirmBox
                 closeModal={handleCloseBan}
                 handleDelete={handleBan}
                 isPending={user.status === 1 ? banMutation.isPending : unbanMutation.isPending}

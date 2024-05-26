@@ -6,44 +6,72 @@ import Loading from '../../components/GlobalComponents/Loading'
 import useQueryConfig from '../../hooks/useQueryConfig'
 import { omit } from 'lodash'
 import { useForm } from 'react-hook-form'
-import { getReportPost } from '../../apis/inspectorApi'
-import PostItem from './components/PostItem'
+import AlbumItem from './components/AlbumItem'
+import { getAlbumsForInspector } from '../../apis/inspectorApi'
 
-export default function BlogList() {
+export default function AlbumList() {
   const navigate = useNavigate()
-  const queryConfig = omit(useQueryConfig(), 'sort')
+  const queryConfig = useQueryConfig()
 
   const { data, isLoading } = useQuery({
-    queryKey: ['report-list', queryConfig],
+    queryKey: ['albums-list', queryConfig],
     queryFn: () => {
-      return getReportPost(queryConfig)
+      return getAlbumsForInspector(queryConfig)
     },
-    placeholderData: keepPreviousData
+    placeholderData: keepPreviousData,
+    staleTime: 1000 * 60 * 10
   })
-
   console.log(data)
+
+  const handleChangeSort = (e) => {
+    navigate({
+      pathname: '/albums',
+      search: createSearchParams({
+        ...queryConfig,
+        sort: e.target.value
+      }).toString()
+    })
+  }
+
+  const handleChangeCategoryAlbum = (e) => {
+    if (e.target.value === 'all') {
+      navigate({
+        pathname: '/albums',
+        search: createSearchParams({
+          ...omit(queryConfig, ['category_album'])
+        }).toString()
+      })
+    } else {
+      navigate({
+        pathname: '/albums',
+        search: createSearchParams({
+          ...queryConfig,
+          category_album: e.target.value
+        }).toString()
+      })
+    }
+  }
 
   const { register, handleSubmit } = useForm({
     defaultValues: {
-      searchBlogs: queryConfig.search || ''
+      searchAlbums: queryConfig.search || ''
     }
   })
   const onSubmitSearch = handleSubmit((data) => {
-    if (data.searchReport === '') {
+    if (data.searchAlbums === '') {
       navigate({
-        pathname: '/reports',
-        search: createSearchParams(omit({ ...queryConfig }, ['page', 'search'])).toString()
+        pathname: '/albums',
+        search: createSearchParams(omit({ ...queryConfig }, ['status', 'category_album', 'page', 'search'])).toString()
       })
       return
     }
-
     navigate({
-      pathname: '/reports',
-      search: createSearchParams(omit({ ...queryConfig, search: data.searchReport }, ['page'])).toString()
+      pathname: '/albums',
+      search: createSearchParams(
+        omit({ ...queryConfig, search: data.searchAlbums }, ['status', 'category_album', 'page'])
+      ).toString()
     })
   })
-
-  console.log(queryConfig)
 
   return (
     <div className='h-screen mb-[30rem] text-gray-900 dark:text-white py-4 mx-3'>
@@ -52,20 +80,48 @@ export default function BlogList() {
           <div className='grid xl:grid-cols-6 items-center'>
             <div className='col-span-2 lg:col-span-1 mb-2'>
               <div className='text-xl font-medium mb-2'>
-                <span>Trang kiểm duyệt blog</span>
+                <span>Trang kiểm duyệt album</span>
               </div>
               <div className='border-b-[3px] mb-2 w-[30%] border-red-300 '></div>
             </div>
             <div className='col-span-4 lg:col-span-5 mb-2  '>
               <div className='flex flex-wrap gap-3 xl:justify-end items-center'>
+                <select
+                  onChange={handleChangeSort}
+                  defaultValue={queryConfig.sort}
+                  id='sort'
+                  className='select select-sm border bg-white dark:bg-slate-800 dark:border-none'
+                >
+                  <option value='desc'>Mới nhất</option>
+                  <option value='asc'>Lâu nhất</option>
+                </select>
+
+                <select
+                  defaultValue={queryConfig.category_album || 'all'}
+                  onChange={handleChangeCategoryAlbum}
+                  id='category_album'
+                  className='select select-sm border bg-white dark:bg-slate-800 dark:border-none'
+                >
+                  <option value='all'>Thể loại</option>
+                  <option value='Cho bé'>Cho bé</option>
+                  <option value='Cho bà bầu'>Cho bà bầu</option>
+                  <option value='Cho người già'>Cho người già</option>
+                  <option value='Giảm cân'>Giảm cân</option>
+                  <option value='Tăng cân'>Tăng cân</option>
+                  <option value='Cho người bệnh'>Cho người bệnh</option>
+                  <option value='Thể thao'>Thể thao</option>
+                  <option value='Sắc đẹp'>Sắc đẹp</option>
+                  <option value='Cho người ăn chay'>Cho người ăn chay</option>
+                </select>
+
                 <form onSubmit={onSubmitSearch} className=' w-[100%] max-w-[20rem] min-w-[18rem] relative'>
                   <div className='relative'>
                     <input
                       autoComplete='off'
                       type='search'
                       id='search_input'
-                      {...register('searchReport')}
-                      placeholder='Tìm kiếm bài bị báo cáo'
+                      {...register('searchAlbums')}
+                      placeholder='Tìm kiếm bài viết'
                       className='w-full py-2 px-3 placeholder:text-sm rounded-lg border border-red-200 bg-white dark:border-none dark:bg-slate-800'
                     />
                     <button className='absolute right-1 top-1/2 -translate-y-1/2 py-2 px-3 bg-yellow-700 text-white dark:bg-slate-600 rounded-lg'>
@@ -94,15 +150,21 @@ export default function BlogList() {
                         scope='col'
                         className='px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider'
                       >
-                        Nội dung
+                        Tên Album
                       </th>
                       <th
                         scope='col'
                         className='px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider'
                       >
-                        Số lần bị báo cáo
+                        Trạng thái
                       </th>
 
+                      <th
+                        scope='col'
+                        className='px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider'
+                      >
+                        Thể loại
+                      </th>
                       <th
                         scope='col'
                         className='px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider'
@@ -118,22 +180,22 @@ export default function BlogList() {
                     </tr>
                   </thead>
                   <tbody className='bg-white dark:bg-color-primary dark:divide-gray-700 divide-y divide-gray-200'>
-                    {data?.data?.result.posts.map((post) => {
-                      return <PostItem key={post._id} post={post} />
+                    {data?.data?.result.albums.map((album) => {
+                      return <AlbumItem key={album._id} album={album} />
                     })}
                   </tbody>
                 </table>
               </div>
             </>
           )}
-          {data?.data.result.posts.length === 0 && (
+          {data?.data.result.albums.length === 0 && (
             <div className='flex justify-center items-center py-4'>
-              <div className='text-gray-500 dark:text-gray-300'>Không có bài viết nào</div>
+              <div className='text-gray-500 dark:text-gray-300'>Không có album nào</div>
             </div>
           )}
           {data?.data.result.totalPage > 1 && (
             <div className='flex justify-center items-center'>
-              <Pagination pageSize={data?.data.result.totalPage} queryConfig={queryConfig} url='/reports' />
+              <Pagination pageSize={data?.data.result.totalPage} queryConfig={queryConfig} url='/albums' />
             </div>
           )}
         </div>

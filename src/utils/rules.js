@@ -28,4 +28,13 @@ export const schemaRegisterUser = yup.object({
     .max(160, 'Độ dài từ 5 - 160 ký tự')
 })
 
+export const schemaCreateIngredient = yup.object({
+  name: yup.string().required('Tên là bắt buộc').min(1, 'Độ dài từ 1 - 160 ký tự').max(160, 'Độ dài từ 3 - 160 ký tự'),
+  energy: yup.number().required('Năng lượng là bắt buộc').min(0, 'Năng lượng không được âm'),
+  protein: yup.number().required('Protein là bắt buộc').min(0, 'Protein không được âm'),
+  fat: yup.number().required('Fat là bắt buộc').min(0, 'Fat không được âm'),
+  carbohydrate: yup.number().required('Carbohydrate là bắt buộc').min(0, 'Carbohydrate không được âm'),
+  ingredient_category_ID: yup.string().notOneOf(['DEFAULT'], 'Hãy chọn loại nguyên liệu')
+})
+
 //validate dynamic form

@@ -13,7 +13,7 @@ import Logo from '../Logo'
 import { MdDashboardCustomize } from 'react-icons/md'
 import { RiUserReceived2Fill } from 'react-icons/ri'
 import { MdFactCheck } from 'react-icons/md'
-import { FaCookieBite, FaUserPen } from 'react-icons/fa6'
+import { FaBowlFood, FaCookieBite, FaPenToSquare, FaUserPen } from 'react-icons/fa6'
 import { AppContext } from '../../../contexts/app.context'
 import { IoMdAlbums } from 'react-icons/io'
 import { FaShareAlt } from 'react-icons/fa'
@@ -121,7 +121,7 @@ export default function SideBar() {
 
             {profile?.role === 4 && (
               <li>
-                <NavLink to={'/request-list'} className='link-custom '>
+                <NavLink to={'/reports'} className='link-custom '>
                   <RiUserReceived2Fill size={25} className='min-w-max' />
                   Bài viết bị báo cáo
                 </NavLink>
@@ -155,21 +155,39 @@ export default function SideBar() {
               <div className='border-t py-5 border-t-slate-300 '>
                 <small className='pl-3 text-slate-500 inline-block mb-2'>Quản lí tài khoản</small>
                 <li>
-                  <NavLink to={'/cooking'} className='link-custom '>
+                  <NavLink to={'/recipes'} className='link-custom '>
                     <FaCookieBite size={25} className='min-w-max' />
                     Quản lý món ăn
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to={'/album'} className='link-custom '>
+                  <NavLink to={'/albums'} className='link-custom '>
                     <IoMdAlbums size={25} className='min-w-max' />
                     Quản lý album
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to={'/blog'} className='link-custom '>
+                  <NavLink to={'/blogs'} className='link-custom '>
                     <FaShareAlt size={25} className='min-w-max' />
                     Quản lý blog
+                  </NavLink>
+                </li>
+              </div>
+            )}
+
+            {profile?.role === 3 && (
+              <div className='border-t py-5 border-t-slate-300 '>
+                <small className='pl-3 text-slate-500 inline-block mb-2'>Bài viết nấu ăn</small>
+                <li>
+                  <NavLink to={'/recipes-writter'} className='link-custom '>
+                    <FaPenToSquare size={25} className='min-w-max' />
+                    Tạo bài viết nấu ăn
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to={'/ingredients'} className='link-custom '>
+                    <FaBowlFood size={25} className='min-w-max' />
+                    Tạo nguyên liệu
                   </NavLink>
                 </li>
               </div>
