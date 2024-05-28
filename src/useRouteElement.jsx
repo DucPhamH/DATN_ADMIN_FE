@@ -5,6 +5,8 @@ import AuthLayout from './layouts/AuthLayout'
 import NotFound from './pages/NotFound'
 import MainLayout from './layouts/MainLayout'
 import { AppContext } from './contexts/app.context'
+import CreateRecipe from './pages/CreateRecipe'
+import CreateLayout from './layouts/CreateLayout'
 
 const Home = lazy(() => import('./pages/Home'))
 const UserList = lazy(() => import('./pages/UserList'))
@@ -21,6 +23,8 @@ const AlbumDetail = lazy(() => import('./pages/AlbumDetail'))
 const ReportList = lazy(() => import('./pages/ReportList'))
 const ReportDetail = lazy(() => import('./pages/ReportDetail'))
 const IngredientList = lazy(() => import('./pages/IngredientList'))
+const RecipeWritterList = lazy(() => import('./pages/RecipeWritterList'))
+const EditRecipe = lazy(() => import('./pages/EditRecipe'))
 
 export default function useRouteElement() {
   function ProtectedRoute() {
@@ -169,6 +173,36 @@ export default function useRouteElement() {
                 <IngredientList />
               </Suspense>
             </MainLayout>
+          )
+        },
+        {
+          path: '/recipes-writter',
+          element: (
+            <MainLayout>
+              <Suspense>
+                <RecipeWritterList />
+              </Suspense>
+            </MainLayout>
+          )
+        },
+        {
+          path: '/recipes-writter/create',
+          element: (
+            <CreateLayout>
+              <Suspense>
+                <CreateRecipe />
+              </Suspense>
+            </CreateLayout>
+          )
+        },
+        {
+          path: '/recipes-writter/edit/:id',
+          element: (
+            <CreateLayout>
+              <Suspense>
+                <EditRecipe />
+              </Suspense>
+            </CreateLayout>
           )
         }
       ]

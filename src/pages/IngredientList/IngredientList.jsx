@@ -9,7 +9,7 @@ import Loading from '../../components/GlobalComponents/Loading'
 
 import Pagination from '../../components/GlobalComponents/Pagination'
 import { FaPlus } from 'react-icons/fa6'
-import IngerdientItem from './components/RecipeItem'
+import IngerdientItem from './components/IngerdientItem'
 import { useState } from 'react'
 import ModalCreate from './components/ModalCreate/ModalCreate'
 
