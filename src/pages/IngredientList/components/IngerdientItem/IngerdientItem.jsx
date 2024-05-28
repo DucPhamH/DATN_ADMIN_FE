@@ -50,7 +50,7 @@ export default function IngerdientItem({ ingredient }) {
           <div className='text-sm text-gray-500'>{ingredient.carbohydrate} g</div>
         </td>
 
-        <td className='px-6 py-4 mt-2 gap-2 flex item-center whitespace-nowrap  text-sm font-medium'>
+        <td className='px-6 py-4  gap-2 flex item-center whitespace-nowrap  text-sm font-medium'>
           <div onClick={handleOpenDelete} className=' cursor-pointer text-red-600 hover:text-red-900'>
             Xóa
           </div>
