@@ -1,7 +1,6 @@
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import parse from 'html-react-parser'
-import { modules, formats } from '../../services/editorToolbar'
 import { IoMdHome } from 'react-icons/io'
 import Input from '../../components/InputComponents/Input'
 import TextArea from '../../components/InputComponents/TextArea'
@@ -17,7 +16,7 @@ import {
   getRecipeDetailForWritter,
   updateRecipe
 } from '../../apis/writterApi'
-import { toast } from 'react-toastify'
+import { toast } from 'react-hot-toast'
 import Loading from '../../components/GlobalComponents/Loading'
 import EditConfirmBox from '../../components/GlobalComponents/EditConfirmBox'
 import { queryClient } from '../../main'
@@ -27,6 +26,7 @@ import PaginationNotUrl from '../../components/GlobalComponents/PaginationNotUrl
 import { AiOutlineSearch } from 'react-icons/ai'
 import { FaPlus } from 'react-icons/fa6'
 import IngerdientItem from './components/IngerdientItem'
+import { formats, modules } from '../../constants/editorToolbar'
 
 export default function EditRecipe() {
   const [openEdit, setOpenEdit] = useState(false)
@@ -166,7 +166,9 @@ export default function EditRecipe() {
         console.log(data)
         toast.success('Chỉnh sửa bài viết thành công')
         handleCloseEdit()
-        queryClient.invalidateQueries('recipe-info')
+        queryClient.invalidateQueries({
+          queryKey: ['recipe-info']
+        })
         setMealState([])
       },
       onError: (error) => {

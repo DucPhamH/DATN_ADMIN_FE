@@ -7,7 +7,7 @@ import { useMutation } from '@tanstack/react-query'
 import { acceptRecipe, rejectRecipe } from '../../../../apis/inspectorApi'
 import ConfirmBox from '../../../../components/GlobalComponents/ConfirmBox'
 import { queryClient } from '../../../../main'
-import { toast } from 'react-toastify'
+import { toast } from 'react-hot-toast'
 
 export default function RecipeItem({ recipe }) {
   const [openAccept, setOpenAccept] = useState(false)
@@ -39,7 +39,9 @@ export default function RecipeItem({ recipe }) {
   const handleAccept = () => {
     acceptRecipesMutation.mutate(null, {
       onSuccess: () => {
-        queryClient.invalidateQueries('recipes-list')
+        queryClient.invalidateQueries({
+          queryKey: ['recipes-list']
+        })
         toast.success('Duyệt thành công')
       }
     })
@@ -48,7 +50,9 @@ export default function RecipeItem({ recipe }) {
   const handleReject = () => {
     rejectRecipesMutation.mutate(null, {
       onSuccess: () => {
-        queryClient.invalidateQueries('recipes-list')
+        queryClient.invalidateQueries({
+          queryKey: ['recipes-list']
+        })
         toast.success('Từ chối thành công')
       }
     })

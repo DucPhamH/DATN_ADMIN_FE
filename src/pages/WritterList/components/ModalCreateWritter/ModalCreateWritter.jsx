@@ -7,7 +7,7 @@ import { createUserAdmin } from '../../../../apis/adminApi'
 import { useMutation } from '@tanstack/react-query'
 import Input from '../../../../components/InputComponents/Input'
 import Loading from '../../../../components/GlobalComponents/Loading'
-import { toast } from 'react-toastify'
+import { toast } from 'react-hot-toast'
 import { isAxiosUnprocessableEntityError } from '../../../../utils/utils'
 import { queryClient } from '../../../../main'
 
@@ -38,7 +38,9 @@ export default function ModalCreateWritter({ handleCloseModal }) {
         console.log(data)
         toast.success('Tạo người viết bài thành công')
         handleCloseModal()
-        queryClient.invalidateQueries('writter-list')
+        queryClient.invalidateQueries({
+          queryKey: ['writter-list']
+        })
       },
       onError: (error) => {
         if (isAxiosUnprocessableEntityError(error)) {

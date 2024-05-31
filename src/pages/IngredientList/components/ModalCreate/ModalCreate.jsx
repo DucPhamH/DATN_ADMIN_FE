@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { schemaCreateIngredient } from '../../../../utils/rules'
 import Loading from '../../../../components/GlobalComponents/Loading'
-import { toast } from 'react-toastify'
+import { toast } from 'react-hot-toast'
 
 export default function ModalCreate({ handleCloseModalCreate }) {
   const {

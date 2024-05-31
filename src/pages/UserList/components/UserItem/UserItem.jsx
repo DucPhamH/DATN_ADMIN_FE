@@ -1,6 +1,6 @@
 import useravatar from '../../../../assets/images/useravatar.jpg'
 import { useMutation } from '@tanstack/react-query'
-import { toast } from 'react-toastify'
+import { toast } from 'react-hot-toast'
 import { banUserAdmin, deleteUserAdmin, unbanUserAdmin } from '../../../../apis/adminApi'
 import { useState } from 'react'
 
@@ -30,7 +30,9 @@ export default function UserItem({ user }) {
     mutationFn: () => deleteUserAdmin(user._id),
     onSuccess: () => {
       toast.success('Xóa người dùng thành công')
-      queryClient.invalidateQueries('user-list')
+      queryClient.invalidateQueries({
+        queryKey: 'user-list'
+      })
       handleCloseDelete()
     }
   })
