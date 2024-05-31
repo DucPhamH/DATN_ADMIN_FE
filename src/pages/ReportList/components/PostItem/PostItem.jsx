@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import useravatar from '../../../../assets/images/useravatar.jpg'
 import { cutString } from '../../../../utils/helper'
 import { queryClient } from '../../../../main'
-import { toast } from 'react-toastify'
+import { toast } from 'react-hot-toast'
 import { useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { acceptReportPost, rejectReportPost } from '../../../../apis/inspectorApi'
@@ -40,7 +40,9 @@ export default function PostItem({ post }) {
   const handleAccept = () => {
     acceptPostsMutation.mutate(null, {
       onSuccess: () => {
-        queryClient.invalidateQueries('report-list')
+        queryClient.invalidateQueries({
+          queryKey: ['report-list']
+        })
         toast.success('Giữ bài viết thành công')
       }
     })
@@ -55,7 +57,9 @@ export default function PostItem({ post }) {
       { user_id },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries('report-list')
+          queryClient.invalidateQueries({
+            queryKey: ['report-list']
+          })
           toast.success('Xóa bài viết thành công')
         }
       }

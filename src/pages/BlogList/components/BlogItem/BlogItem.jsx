@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import useravatar from '../../../../assets/images/useravatar.jpg'
 import { cutString } from '../../../../utils/helper'
 import { queryClient } from '../../../../main'
-import { toast } from 'react-toastify'
+import { toast } from 'react-hot-toast'
 import { useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { acceptBlog, rejectBlog } from '../../../../apis/inspectorApi'
@@ -38,7 +38,9 @@ export default function BlogItem({ blog }) {
   const handleAccept = () => {
     acceptBlogsMutation.mutate(null, {
       onSuccess: () => {
-        queryClient.invalidateQueries('blogs-list')
+        queryClient.invalidateQueries({
+          queryKey: ['blogs-list']
+        })
         toast.success('Duyệt thành công')
       }
     })
@@ -47,7 +49,9 @@ export default function BlogItem({ blog }) {
   const handleReject = () => {
     rejectBlogsMutation.mutate(null, {
       onSuccess: () => {
-        queryClient.invalidateQueries('blogs-list')
+        queryClient.invalidateQueries({
+          queryKey: ['blogs-list']
+        })
         toast.success('Từ chối thành công')
       }
     })

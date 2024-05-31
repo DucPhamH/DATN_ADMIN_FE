@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import useravatar from '../../../../assets/images/useravatar.jpg'
 import { cutString } from '../../../../utils/helper'
 import { queryClient } from '../../../../main'
-import { toast } from 'react-toastify'
+import { toast } from 'react-hot-toast'
 import { useMutation } from '@tanstack/react-query'
 import { useState } from 'react'
 import { acceptAlbum, rejectAlbum } from '../../../../apis/inspectorApi'
@@ -38,7 +38,9 @@ export default function AlbumItem({ album }) {
   const handleAccept = () => {
     acceptAlbumsMutation.mutate(null, {
       onSuccess: () => {
-        queryClient.invalidateQueries('albums-list')
+        queryClient.invalidateQueries({
+          queryKey: ['albums-list']
+        })
         toast.success('Duyệt thành công')
       }
     })
@@ -47,7 +49,9 @@ export default function AlbumItem({ album }) {
   const handleReject = () => {
     rejectAlbumsMutation.mutate(null, {
       onSuccess: () => {
-        queryClient.invalidateQueries('albums-list')
+        queryClient.invalidateQueries({
+          queryKey: ['albums-list']
+        })
         toast.success('Từ chối thành công')
       }
     })

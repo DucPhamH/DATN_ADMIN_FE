@@ -1,7 +1,6 @@
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import parse from 'html-react-parser'
-import { modules, formats } from '../../services/editorToolbar'
 import { IoMdHome } from 'react-icons/io'
 import Input from '../../components/InputComponents/Input'
 import TextArea from '../../components/InputComponents/TextArea'
@@ -11,10 +10,11 @@ import { schemaCreateRecipe } from '../../utils/rules'
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import Loading from '../../components/GlobalComponents/Loading'
 import { useMutation } from '@tanstack/react-query'
-import { toast } from 'react-toastify'
+import { toast } from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import CreateConfirmBox from '../../components/GlobalComponents/CreateConfirmBox'
+import { modules, formats } from '../../constants/editorToolbar'
 
 import {
   createRecipesForWritter,

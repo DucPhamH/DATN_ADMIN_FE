@@ -6,7 +6,7 @@ import { createUserAdmin } from '../../../../apis/adminApi'
 import { useMutation } from '@tanstack/react-query'
 import Input from '../../../../components/InputComponents/Input'
 import Loading from '../../../../components/GlobalComponents/Loading'
-import { toast } from 'react-toastify'
+import { toast } from 'react-hot-toast'
 import { isAxiosUnprocessableEntityError } from '../../../../utils/utils'
 import { queryClient } from '../../../../main'
 
@@ -37,7 +37,9 @@ export default function ModalCreateInspector({ handleCloseModal }) {
         console.log(data)
         toast.success('Tạo người kiểm duyệt thành công')
         handleCloseModal()
-        queryClient.invalidateQueries('inspector-list')
+        queryClient.invalidateQueries({
+          queryKey: ['inspector-list']
+        })
       },
       onError: (error) => {
         if (isAxiosUnprocessableEntityError(error)) {

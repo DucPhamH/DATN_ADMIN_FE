@@ -1,6 +1,6 @@
 import useravatar from '../../../../assets/images/useravatar.jpg'
 import { useMutation } from '@tanstack/react-query'
-import { toast } from 'react-toastify'
+import { toast } from 'react-hot-toast'
 import { banUserAdmin, deleteUserAdmin, unbanUserAdmin } from '../../../../apis/adminApi'
 import { useState } from 'react'
 import { queryClient } from '../../../../main'
@@ -29,7 +29,9 @@ export default function UserItem({ user }) {
     mutationFn: () => deleteUserAdmin(user._id),
     onSuccess: () => {
       toast.success('Xóa người dùng thành công')
-      queryClient.invalidateQueries('inspector-list')
+      queryClient.invalidateQueries({
+        queryKey: ['inspector-list']
+      })
       handleCloseDelete()
     }
   })
@@ -51,7 +53,9 @@ export default function UserItem({ user }) {
         { user_id: user._id },
         {
           onSuccess: () => {
-            queryClient.invalidateQueries('inspector-list')
+            queryClient.invalidateQueries({
+              queryKey: ['inspector-list']
+            })
             toast.success('Mở khóa thành công')
           }
         }
@@ -61,7 +65,9 @@ export default function UserItem({ user }) {
         { user_id: user._id },
         {
           onSuccess: () => {
-            queryClient.invalidateQueries('inspector-list')
+            queryClient.invalidateQueries({
+              queryKey: ['inspector-list']
+            })
             toast.success('Khóa thành công')
           }
         }

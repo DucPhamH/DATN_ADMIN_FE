@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { deleteRecipe } from '../../../../apis/writterApi'
 import { useMutation } from '@tanstack/react-query'
 import { queryClient } from '../../../../main'
-import { toast } from 'react-toastify'
+import { toast } from 'react-hot-toast'
 import ConfirmBox from '../../../../components/GlobalComponents/ConfirmBox'
 
 export default function RecipeItem({ recipe }) {
@@ -29,7 +29,9 @@ export default function RecipeItem({ recipe }) {
   const handleDelete = () => {
     deleteRecipeMutation.mutate(null, {
       onSuccess: () => {
-        queryClient.invalidateQueries('recipes-list')
+        queryClient.invalidateQueries({
+          queryKey: ['recipes-writter-list']
+        })
         toast.success('Xóa bài viết thành công')
       }
     })

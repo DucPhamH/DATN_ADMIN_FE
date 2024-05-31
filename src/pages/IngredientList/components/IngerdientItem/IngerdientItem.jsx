@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { deleteIngredient } from '../../../../apis/writterApi'
 import { queryClient } from '../../../../main'
-import { toast } from 'react-toastify'
+import { toast } from 'react-hot-toast'
 import { useMutation } from '@tanstack/react-query'
 import ConfirmBox from '../../../../components/GlobalComponents/ConfirmBox'
 
@@ -25,7 +25,9 @@ export default function IngerdientItem({ ingredient }) {
   const handleDelete = () => {
     deleteIngredientMutation.mutate(null, {
       onSuccess: () => {
-        queryClient.invalidateQueries('ingredient-list')
+        queryClient.invalidateQueries({
+          queryKey: ['list-ingredients']
+        })
         toast.success('Xóa nguyên liệu thành công')
       }
     })

@@ -1,6 +1,6 @@
 import useravatar from '../../../../assets/images/useravatar.jpg'
 import { useMutation } from '@tanstack/react-query'
-import { toast } from 'react-toastify'
+import { toast } from 'react-hot-toast'
 import { acceptRequestToChef, rejectRequestToChef } from '../../../../apis/adminApi'
 import { useState } from 'react'
 import { queryClient } from '../../../../main'
@@ -49,7 +49,9 @@ export default function UserItem({ user }) {
       { user_id: user._id },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries('request-list')
+          queryClient.invalidateQueries({
+            queryKey: ['request-list']
+          })
           toast.success('Đồng ý thành công')
         }
       }
@@ -61,7 +63,9 @@ export default function UserItem({ user }) {
       { user_id: user._id },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries('request-list')
+          queryClient.invalidateQueries({
+            queryKey: ['request-list']
+          })
           toast.success('Từ chối thành công')
         }
       }
