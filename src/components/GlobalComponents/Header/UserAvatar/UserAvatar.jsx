@@ -60,7 +60,7 @@ export default function UserAvatar() {
           <div className='capitalize flex flex-col justify-start text-gray-600 dark:text-gray-300 text-sm hover:underline'>
             {profile.name}
           </div>
-          <p className='text-xs flex text-gray-500 dark:text-gray-400 justify-start'>{profile.user_name}</p>
+          <p className='text-xs flex text-gray-500 dark:text-gray-400 justify-start'>@{profile.user_name}</p>
         </div>
       </button>
       <AnimatePresence>
@@ -80,16 +80,7 @@ export default function UserAvatar() {
                     onClick={() => setIsMenu(false)}
                     className='block px-4 py-2 transition-all duration-400 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'
                   >
-                    Trang chủ
-                  </Link>
-                </div>
-                <div>
-                  <Link
-                    to='/me'
-                    onClick={() => setIsMenu(false)}
-                    className='block px-4 py-2 transition-all duration-400 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'
-                  >
-                    Thông tin
+                    Dashboard
                   </Link>
                 </div>
               </div>
