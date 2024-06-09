@@ -6,7 +6,8 @@ import { isAxiosUnauthorizedError } from './utils'
 
 const URL = {
   BASE_URL: 'http://localhost:4000/api',
-  DEPLOY_URL: 'https://datn-be-kwjk.onrender.com/api'
+  DEPLOY_URL: 'https://datn-be-kwjk.onrender.com/api',
+  VPS_URL: 'https://cookhealthydatn.io.vn/api'
 }
 class Http {
   constructor() {
