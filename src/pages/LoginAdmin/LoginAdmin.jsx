@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import InputPass from '../../components/InputComponents/InputPass'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -78,11 +78,11 @@ export default function Login() {
           errors={errors.password}
           name='password'
         />
-        <div className='text-right text-sm'>
+        {/* <div className='text-right text-sm'>
           <Link className='ml-1 text-blue-400 hover:underline hover:text-red-700' to='/login'>
             Trở lại trang đăng nhập người dùng
           </Link>
-        </div>
+        </div> */}
         <div className='px-4 rounded-full pt-4'>
           {loginAccountAdminMutation.isPending ? (
             <div className='block w-full p-2 transition-all duration-500 mt-3 text-lg rounded-full bg-gray-500 first-letter:focus:outline-none'>

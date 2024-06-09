@@ -73,17 +73,19 @@ export default function UserAvatar() {
             className='z-50 absolute top-[4rem] right-1 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-color-primary dark:divide-gray-600'
           >
             <div className='z-50 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-color-primary dark:divide-gray-600'>
-              <div className='py-2 text-gray-700 dark:text-gray-200'>
-                <div>
-                  <Link
-                    to='/'
-                    onClick={() => setIsMenu(false)}
-                    className='block px-4 py-2 transition-all duration-400 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'
-                  >
-                    Dashboard
-                  </Link>
+              {profile.role === 2 && (
+                <div className='py-2 text-gray-700 dark:text-gray-200'>
+                  <div>
+                    <Link
+                      to='/'
+                      onClick={() => setIsMenu(false)}
+                      className='block px-4 py-2 transition-all duration-400 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'
+                    >
+                      Dashboard
+                    </Link>
+                  </div>
                 </div>
-              </div>
+              )}
               <div className='py-2 '>
                 <div
                   onClick={onLogout}
