@@ -17,6 +17,7 @@ import { FaBowlFood, FaCookieBite, FaPenToSquare, FaUserPen } from 'react-icons/
 import { AppContext } from '../../../contexts/app.context'
 import { IoMdAlbums } from 'react-icons/io'
 import { FaShareAlt } from 'react-icons/fa'
+import { MdReport } from 'react-icons/md'
 
 export default function SideBar() {
   let isTabletMid = useMediaQuery({ query: '(max-width: 767px)' })
@@ -103,7 +104,7 @@ export default function SideBar() {
         <Logo />
 
         <div className='flex flex-col h-full'>
-          <ul className='whitespace-pre  px-2.5 pt-6  flex flex-col gap-3 font-medium overflow-x-hidden scrollbar-thin scrollbar-track-white dark:scrollbar-track-[#010410] dark:scrollbar-thumb-[#171c3d] scrollbar-thumb-slate-100 md:h-[72%] h-[70%]'>
+          <ul className='whitespace-pre  px-2.5 pt-6 flex flex-col font-medium overflow-x-hidden scrollbar-thin scrollbar-track-white dark:scrollbar-track-[#010410] dark:scrollbar-thumb-[#171c3d] scrollbar-thumb-slate-100 md:h-[72%] h-[70%]'>
             {profile?.role === 2 && (
               <>
                 <li>
@@ -119,13 +120,19 @@ export default function SideBar() {
                     Yêu cầu nâng cấp
                   </NavLink>
                 </li>
+                <li>
+                  <NavLink to={'/reports'} className='link-custom '>
+                    <MdReport size={25} className='min-w-max' />
+                    Bài viết bị báo cáo
+                  </NavLink>
+                </li>
               </>
             )}
 
             {profile?.role === 4 && (
               <li>
                 <NavLink to={'/reports'} className='link-custom '>
-                  <RiUserReceived2Fill size={25} className='min-w-max' />
+                  <MdReport size={25} className='min-w-max' />
                   Bài viết bị báo cáo
                 </NavLink>
               </li>
