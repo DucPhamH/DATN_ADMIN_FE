@@ -50,13 +50,13 @@ export default function BlogList() {
       <div className='mx-2'>
         <div className=''>
           <div className='grid xl:grid-cols-6 items-center'>
-            <div className='col-span-2 lg:col-span-1 mb-2'>
+            <div className='col-span-4 lg:col-span-4 mb-2'>
               <div className='text-xl font-medium mb-2'>
-                <span>Trang kiểm duyệt blog</span>
+                <span>Trang kiểm duyệt bài viết bị báo cáo</span>
               </div>
               <div className='border-b-[3px] mb-2 w-[30%] border-red-300 '></div>
             </div>
-            <div className='col-span-4 lg:col-span-5 mb-2  '>
+            <div className='col-span-2 lg:col-span-2 mb-2  '>
               <div className='flex flex-wrap gap-3 xl:justify-end items-center'>
                 <form onSubmit={onSubmitSearch} className=' w-[100%] max-w-[20rem] min-w-[18rem] relative'>
                   <div className='relative'>
@@ -100,7 +100,7 @@ export default function BlogList() {
                         scope='col'
                         className='px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider'
                       >
-                        Số lần bị báo cáo
+                        Bị báo cáo
                       </th>
 
                       <th

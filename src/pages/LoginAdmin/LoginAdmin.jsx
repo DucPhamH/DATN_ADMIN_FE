@@ -31,7 +31,16 @@ export default function Login() {
       onSuccess: (data) => {
         setIsAuthenticated(true)
         setProfile(data.data.result.user)
-        navigate('/')
+        if (data.data.result.user.role === 2) {
+          navigate('/')
+        }
+        if (data.data.result.user.role === 3) {
+          navigate('/recipes-writter')
+        }
+        if (data.data.result.user.role === 4) {
+          navigate('/reports')
+        }
+
         toast.success(data.data.message)
       },
       onError: (error) => {
