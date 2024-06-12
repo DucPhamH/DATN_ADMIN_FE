@@ -29,7 +29,9 @@ export default function ModalRequest({ handleCloseModal, request }) {
               <div className=''>
                 <p className='lead mt-2 mb-1 whitespace-pre-line font-medium'> Link minh chứng: </p>
               </div>
-              <div className='custorm-blog '>{request.proof}</div>
+              <div className='custorm-blog w-full overflow-x-auto scrollbar-thin scrollbar-track-white dark:scrollbar-track-[#010410] dark:scrollbar-thumb-[#171c3d] scrollbar-thumb-slate-200 py-3 '>
+                {request.proof}
+              </div>
             </div>
 
             <div className=''>
