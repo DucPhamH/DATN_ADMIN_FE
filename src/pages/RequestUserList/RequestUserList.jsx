@@ -130,7 +130,7 @@ export default function RequestUserList() {
                         scope='col'
                         className='px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider'
                       >
-                        Lượt vi phạm
+                        Cách thức nâng cấp
                       </th>
                       <th
                         scope='col'
